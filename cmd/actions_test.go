@@ -177,3 +177,27 @@ func TestScanAction(t *testing.T) {
 		t.Errorf("Expected output %q, got %q\n", expectedOut, out.String())
 	}
 }
+
+
+func TestScanRange(t *testing.T){
+	hosts := []string{
+		"localhost",
+	}
+	var out bytes.Buffer
+	rang := []int{20, 25}
+	expectedout := fmt.Sprintln("localhost:")
+	for i:= rang[0]; i<=rang[1]; i++{
+		expectedout += fmt.Sprintf("\t%d: closed\n", i)
+	}
+	expectedout += fmt.Sprintln()
+	tf, cleanup := setup(t, hosts, true)
+	defer cleanup()
+	err := scanRangeAction(&out, tf, rang)	
+	if err!= nil{
+		t.Error(err)
+	}
+	if out.String() != expectedout{
+		t.Errorf("expected %q, got %q instead", expectedout, out.String())
+	}
+
+}

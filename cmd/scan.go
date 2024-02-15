@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-
 	"github.com/spf13/cobra"
 	"github.com/xnpltn/pScan/scan"
 )
@@ -36,10 +35,10 @@ func scanAction(out io.Writer, hostsFile string, ports []int) error {
 		return err
 	}
 	results := scan.Run(hl, ports)
-	return printResults(out, results)
+	return PrintResults(out, results)
 }
 
-func printResults(out io.Writer, results []scan.Results) error {
+func PrintResults(out io.Writer, results []scan.Results) error {
 	message := ""
 	for _, r := range results {
 		message += fmt.Sprintf("%s:", r.Host)
